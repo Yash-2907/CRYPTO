@@ -1,0 +1,61 @@
+//PRACTICAL1 :-To Implement Vernam cipher and columnar cipher
+
+/*THEORY 1:- vernam cipher is the substitution technique (uses OTP) add otp string to original string
+
+  THEORY 2:- COLUMNAR CIPHER IS DONE WITH TRANSPOSITION CIPHER WRITE TEXT ROW WISE AND USE X AS FILLER , THEN READ COLUMN WISE
+*/
+
+#include<iostream>
+#include<string.h>
+using namespace std;
+int main()
+{
+    string text,otp;
+    cout<<"ENTER THE STRING TO ENCODE :-";
+    cin>>text;
+    cout<<"ENTER THE OTP :- ";
+    cin>>otp;
+    int length1=text.length();
+    int length2=otp.length();
+    if(length2!=length1)
+    {
+      printf("INCORRECT LENGTH OF STRING!!!!!!");
+    }
+    else{
+      string ans="";
+      for(int i=0;i<length1;i++)
+      {
+        if((text[i]<=122)&&(text[i]>=97))
+        {
+           int size=text[i]+otp[i];
+           cout<<"ORIGINAL SIZE IS :- "<<size<<endl;
+           if(size>122)
+           {
+              size=size-122;
+              cout<<"SIZEIS :- "<<size<<endl;
+              char s=97+size-1;
+              cout<<"CHARACTER IS :- "<<s<<endl;
+              ans=ans+s;
+           }
+           else{
+            char s=size;
+            ans=ans+s;
+           }
+        }
+        else{
+           int size=text[i]+otp[i];
+           if(size>90)
+           {
+              size=size-90;
+              char s=65+size-1;
+              ans=ans+s;
+           }
+           else{
+            char s=size;
+            ans=ans+s;
+           }
+        }
+      }
+      cout<<"ENCODED STRING IS :-"<<ans;
+    }
+}
