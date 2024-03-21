@@ -1,0 +1,67 @@
+#include <iostream>
+#include <bits\stdc++.h>
+using namespace std;
+long long int calculate(long long int base, long long int pow, long long int mod)
+{
+    int ans = 1;
+    for (int i = 1; i <= pow; i++)
+    {
+        ans = (ans * base) % mod;
+    }
+    return ans;
+}
+int main()
+{
+    long long int p, e1, e2, r, v1, v2, d, s1, s2, m, term, rinverse, i = 1, fterm;
+    cout << "ENTER VALUE OF P :- ";
+    cin >> p;
+    cout << "ENTER E1 AND D :- ";
+    cin >> e1 >> d;
+    e2 = calculate(e1, d, p);
+    cout << "ENTER THE VALUE OF R :- ";
+    cin >> r;
+    cout << "VALUES OF E1 E2 P ARE :- " << e1 << " " << e2 << " " << p << endl;
+    cout << "ENTER THE VALUE OF MESSAGE M :- ";
+    cin >> m;
+    s1 = calculate(e1, r, p);
+    cout << "S1 IS :- " << s1 << endl;
+    term = m - (d * s1);
+    while (true)
+    {
+        if (((r * i) % (p - 1)) == 1)
+        {
+            rinverse = i;
+            break;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    fterm = term * rinverse;
+    if (fterm >= 0)
+    {
+        s2 = calculate(fterm, 1, p - 1);
+    }
+    else
+    {
+        while (fterm < 0)
+        {
+            fterm = fterm + (p - 1);
+        }
+        s2 = fterm;
+    }
+    cout << "S2 IS :- " << s2 << endl;
+    v1 = calculate(e1, m, p);
+    cout << "V1 IS :- " << v1<<endl;
+    v2 = calculate(calculate(e2, s1, p) * calculate(s1, s2, p),1,p); 
+    cout<<"VALUE OF V2 IS :- "<<v2<<endl;
+    if(v1==v2)
+    {
+        cout<<"AS VALUE OF V1 AND V2 IS EQUAL THUS THE TEXT IS ACCEPTED";
+    }
+    else{
+        cout<<"SOMETHING WRONG , TEXT REJECTED !!!!";
+    }
+    return 0;
+}
