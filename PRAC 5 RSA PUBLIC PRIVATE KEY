@@ -1,0 +1,52 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+long long int calculate(long long int base, long long int pow, long long int mod)
+{
+    int ans = 1;
+    for (int i = 1; i <= pow; i++)
+    {
+        ans = (ans * base) % mod;
+    }
+    return ans;
+}
+int main()
+{
+    long long int p, q, e, n, totn, d, i = 1, C, P, text, temp;
+    cout << "ENTER VALUE OF P Q E repsectively:- \n";
+    cin >> p >> q >> e ;
+    n = p * q;
+    cout << "VALUE OF N IS :- " << n << endl;
+    totn = (p - 1) * (q - 1);
+    cout << "VALUE OF TOTIENT N IS :- " << totn << endl;
+    while (true)
+    {
+        if (((e * i) % totn) == 1)
+        {
+            d = i;
+            break;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    cout << "\nPUBLIC KEY E IS :- " << e << "\nPRIVATE KEY D IS :- " << d << endl;
+    cout << "ENTER TEXT TO ENCODE :- ";
+    cin >> text;
+    C = calculate(text, e, n);
+    cout << "ENCODED TEXT IS :- " << C << endl;
+    cout << "ENTER THE CORRECT PRIVATE KEY TO DECODE :- ";
+    cin >> temp;
+    if (temp == d)
+    {
+        cout << "CORRECT KEYYY !!!!\n";
+        P = calculate(C, d, n);
+        cout << "DECODED TEXT IS:- " << P;
+    }
+    else
+    {
+        cout << "INCORRECT KEY !!!!";
+    }
+    return 0;
+}
